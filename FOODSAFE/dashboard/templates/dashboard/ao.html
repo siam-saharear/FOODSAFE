@@ -1,0 +1,38 @@
+{% extends "dashboard/base.html" %}
+
+
+{% block page-data %}
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Apply</button>
+</form>
+
+<h2>Previous Seed Requests</h2>
+
+{% if previous_requests %}
+<table border="1">
+    <thead>
+        <tr>
+            <th>Farmer Full Name</th>
+            <th>Farmer ID</th>
+            <th>Seed Variety</th>
+            <th>Other Seed Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for request in previous_requests %}
+        <tr>
+            <td>{{ request.farmer_full_name }}</td>
+            <td>{{ request.farmer_id }}</td>
+            <td>{{ request.seed_variety }}</td>
+            <td>{{ request.other_seed_name }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>No previous requests found.</p>
+{% endif %}
+{% endblock  %}
